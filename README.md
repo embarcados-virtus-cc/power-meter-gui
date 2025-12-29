@@ -8,7 +8,7 @@ pnpm install
 ```
 - Rodar o servidor (Vite):
 ```bash
-pnpm start
+pnpm dev 
 ```
 - Testar a aplicação (Vitest):
 ```bash
@@ -17,10 +17,6 @@ pnpm test
 - Rodar o linter (ESLint):
 ```bash
 pnpm lint
-```
-- Formatar através do linter (ESLint):
-```bash
-pnpm format
 ```
 - Formatar através do linter (ESLint):
 ```bash

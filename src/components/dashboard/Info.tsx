@@ -77,7 +77,7 @@ export function Info({ isLoading }: { isLoading: boolean }) {
                 >
                   <Badge
                     variant="outline"
-                    className="w-fit rounded-md bg-zinc-800/50 border-slate-700 text-slate-300"
+                    className="w-fit rounded-md bg-zinc-800 border-none text-slate-300"
                   >
                     {info.label}
                   </Badge>
@@ -102,7 +102,7 @@ export function Info({ isLoading }: { isLoading: boolean }) {
                 >
                   <Badge
                     variant="outline"
-                    className="w-fit rounded-md bg-zinc-800/50 border-slate-700 text-slate-300"
+                    className="w-fit rounded-md bg-zinc-800 border-none text-slate-300"
                   >
                     {info.label}
                   </Badge>

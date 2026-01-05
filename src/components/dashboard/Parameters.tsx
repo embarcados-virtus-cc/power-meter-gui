@@ -55,7 +55,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-6 bg-zinc-800/50 rounded-lg min-h-24"
+                className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg min-h-24"
               >
                 <div className="flex flex-col gap-2">
                   <Skeleton className="w-6 h-6 bg-zinc-800" />
@@ -73,7 +73,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
             {params.map((param, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-6 bg-zinc-800/50 rounded-lg min-h-24"
+                className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg min-h-24"
               >
                 <div className="flex flex-col gap-2">
                   {param.icon && (

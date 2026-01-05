@@ -9,7 +9,7 @@ import {
 export function Header() {
   return (
     <>
-      <header className="p-5 flex items-center bg-zinc-950 shadow-lg">
+      <header className="p-5 flex items-center bg-zinc-950 shadow-lg border-zinc-800 border-b-[0.5px]">
         <div className="container mx-auto">
           <div className="flex items-center justify-between">
             {/* Logo do Projeto */}

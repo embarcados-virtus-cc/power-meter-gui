@@ -22,7 +22,7 @@ export function Info({ isLoading }: { isLoading: boolean }) {
   ]
 
   return (
-    <CardComponent>
+    <CardComponent className="w-full flex flex-col">
       <CardHeaderComponent>
         <div className="flex items-center gap-3">
           <Package className="text-slate-300" size={24} />
@@ -31,18 +31,13 @@ export function Info({ isLoading }: { isLoading: boolean }) {
           </Label>
         </div>
       </CardHeaderComponent>
-      <CardContentComponent className="min-h-66 h-full flex flex-col">
+      <CardContentComponent className="min-h-65 flex-1 flex flex-col">
         {isLoading ? (
           <div className="space-y-4 flex-1">
             {/* Primeira Seção */}
             <div className="grid grid-cols-2 gap-4">
               {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className={`flex flex-col gap-2 ${
-                    i % 2 === 0 ? 'items-end text-right' : ''
-                  }`}
-                >
+                <div key={i} className="flex flex-col gap-2">
                   <Skeleton className="w-24 h-6 rounded-md bg-zinc-800" />
                   <Skeleton className="w-32 h-5 bg-zinc-800" />
                 </div>
@@ -52,12 +47,7 @@ export function Info({ isLoading }: { isLoading: boolean }) {
             {/* Segunda Seção */}
             <div className="grid grid-cols-2 gap-4">
               {[1, 2].map((i) => (
-                <div
-                  key={i}
-                  className={`flex flex-col gap-2 ${
-                    i % 2 === 0 ? 'items-end text-right' : ''
-                  }`}
-                >
+                <div key={i} className="flex flex-col gap-2">
                   <Skeleton className="w-32 h-6 rounded-md bg-zinc-800" />
                   <Skeleton className="w-24 h-5 bg-zinc-800" />
                 </div>
@@ -69,12 +59,7 @@ export function Info({ isLoading }: { isLoading: boolean }) {
             {/* Primeira Seção */}
             <div className="grid grid-cols-2 gap-4">
               {firstSection.map((info, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col gap-2 ${
-                    index % 2 === 1 ? 'items-end text-right' : ''
-                  }`}
-                >
+                <div key={index} className="flex flex-col gap-2">
                   <Badge
                     variant="outline"
                     className="w-fit rounded-md bg-zinc-800/50 border-slate-700 text-slate-300"
@@ -89,17 +74,12 @@ export function Info({ isLoading }: { isLoading: boolean }) {
             </div>
 
             {/* Linha Divisória */}
-            <div className="w-125 pt-1 -translate-x-6.25 h-px bg-zinc-950" />
+            <div className="w-full h-px bg-zinc-950/50 my-2" />
 
             {/* Segunda Seção */}
             <div className="grid grid-cols-2 gap-4 pt-4">
               {secondSection.map((info, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col gap-2 ${
-                    index % 2 === 1 ? 'items-end text-right' : ''
-                  }`}
-                >
+                <div key={index} className="flex flex-col gap-2">
                   <Badge
                     variant="outline"
                     className="w-fit rounded-md bg-zinc-800/50 border-slate-700 text-slate-300"

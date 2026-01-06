@@ -40,7 +40,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
   ]
 
   return (
-    <CardComponent>
+    <CardComponent className="h-full w-full flex flex-col">
       <CardHeaderComponent>
         <div className="flex items-center gap-3">
           <FileText className="text-slate-300" size={24} />
@@ -49,7 +49,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
           </Label>
         </div>
       </CardHeaderComponent>
-      <CardContentComponent className="min-h-48">
+      <CardContentComponent className="min-h-48 flex-1">
         {isLoading ? (
           <div className="grid grid-cols-2 gap-4 h-full">
             {[1, 2, 3, 4].map((i) => (
@@ -69,11 +69,11 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 h-full">
+          <div className="grid grid-cols-2 gap-4 h-full items-stretch">
             {params.map((param, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-6 bg-zinc-800/50 rounded-lg min-h-24"
+                className="flex items-center justify-between p-6 bg-zinc-800/50 rounded-lg h-full min-h-24"
               >
                 <div className="flex flex-col gap-2">
                   {param.icon && (

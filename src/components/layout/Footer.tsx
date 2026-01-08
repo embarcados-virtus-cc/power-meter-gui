@@ -80,33 +80,6 @@ export function Footer() {
             </div>
 
             <Separator className="bg-zinc-800" />
-
-            {/* Linha de Rodapé */}
-            <div className="flex items-center justify-between text-sm text-slate-400">
-              <div className="flex items-center gap-2">
-                <Code2 size={16} />
-                <span>
-                  © {currentYear} Power Meter Ótico. Todos os direitos
-                  reservados.
-                </span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <a
-                  href="#"
-                  className="hover:text-slate-300 transition-colors cursor-pointer"
-                >
-                  Privacidade
-                </a>
-                <span className="text-zinc-700">|</span>
-                <a
-                  href="#"
-                  className="hover:text-slate-300 transition-colors cursor-pointer"
-                >
-                  Termos de Uso
-                </a>
-              </div>
-            </div>
           </div>
         )}
       </div>

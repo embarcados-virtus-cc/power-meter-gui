@@ -14,7 +14,7 @@ export function Header() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [])
@@ -23,7 +23,7 @@ export function Header() {
     <header className="p-5 flex items-center bg-zinc-950 shadow-lg border-zinc-800 border-b-[0.5px]">
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
-          {/* Logo do Projeto */}
+          {/* Logo do Projeto (alinhado a esquerda) */}
           <div className="flex items-center gap-2">
             {isLoading ? (
               <Skeleton className="h-7 w-48 bg-zinc-800" />
@@ -34,8 +34,9 @@ export function Header() {
             )}
           </div>
 
-          {/* Navbar */}
+          {/* Navbar Completa (alinhada a direita) */}
           {isLoading ? (
+            // Skeleton da Navbar
             <div className="ml-auto flex gap-2">
               <Skeleton className="h-9 w-36 bg-zinc-800" />
               <Skeleton className="h-9 w-39 bg-zinc-800" />

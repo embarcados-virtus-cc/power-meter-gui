@@ -27,7 +27,7 @@ pnpm format
 pnpm run check
 ```
 
-Outras configurações relacionadas a desenvolver código de fato, estão no arquivo de [SETUP](./SETUP.md)
+Outras configurações relacionadas a desenvolver código de fato, estão no arquivo de [SETUP](./docs/SETUP.md)
 
 # INFORMAÇÕES DA DOCUMENTAÇÃO
 

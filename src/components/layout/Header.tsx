@@ -32,9 +32,9 @@ export function Header() {
                 <img
                   src="/logo-power-meter.png"
                   alt="Logo"
-                  className="h-12 w-12 mr-3"
+                  className="h-12 w-12 mr-4"
                 />
-                Medidor de Potência Óptica
+                MEDIDOR DE POTÊNCIA ÓPTICA
               </span>
             )}
           </div>

@@ -28,8 +28,13 @@ export function Header() {
             {isLoading ? (
               <Skeleton className="h-7 w-48 bg-zinc-800" />
             ) : (
-              <span className="text-xl font-bold text-slate-300 cursor-pointer">
-                Power Meter Ótico
+              <span className="text-xl font-bold text-slate-300 cursor-pointer flex items-center">
+                <img
+                  src="/logo-power-meter.png"
+                  alt="Logo"
+                  className="h-12 w-12 mr-3"
+                />
+                Medidor de Potência Óptica
               </span>
             )}
           </div>

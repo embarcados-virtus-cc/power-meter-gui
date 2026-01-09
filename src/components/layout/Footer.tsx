@@ -40,19 +40,29 @@ export function Footer() {
             {/* Linha Principal */}
             <div className="flex items-center justify-between">
               {/* Info do Projeto */}
-              <div className="flex flex-col gap-1">
-                <span className="text-lg font-bold text-slate-300">
-                  Power Meter Ótico
-                </span>
-                <span className="text-sm text-slate-400">
-                  Sistema de Monitoramento de Potência Óptica
-                </span>
+
+              <div className="flex items-center gap-2">
+                <div className="mr-2">
+                  <img
+                    src="/logo-power-meter.png"
+                    alt="Logo do Medidor de Potência Óptica"
+                    className="h-20 w-20 rounded-md"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-bold text-slate-300">
+                    Medidor de Potência Óptica
+                  </span>
+                  <span className="text-sm text-slate-400">
+                    Sistema de Monitoramento de Potência Óptica
+                  </span>
+                </div>
               </div>
 
               {/* Links Sociais */}
               <div className="flex gap-3">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/embarcados-virtus-cc/optic-power-meter-gui"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="

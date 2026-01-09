@@ -1,5 +1,5 @@
 {
-  "projectName": "power-meter-gui",
+  "projectName": "optic-power-meter-gui",
   "mode": "file-router",
   "typescript": true,
   "tailwind": true,

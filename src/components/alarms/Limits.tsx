@@ -485,7 +485,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                 htmlFor="global-notifications"
                 className="text-sm font-medium text-slate-300 text-right cursor-pointer"
               >
-                Ativar notificações em toda a dashboard
+                Ativar notificações de flags em toda a dashboard
               </Label>
               <Switch id="global-notifications" defaultChecked />
             </div>

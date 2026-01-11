@@ -1,13 +1,34 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
+import { Flags } from '@/components/alarms/Flags'
+import { Limits } from '@/components/alarms/Limits'
+import { Separator } from '@/components/ui/separator'
 import { loadingStore } from '@/stores/loadingStore'
 
 export const Route = createFileRoute('/alarms/')({
-  component: RouteComponent,
+  component: AlarmsPage,
 })
 
-function RouteComponent() {
+function AlarmsPage() {
   const isLoading = useStore(loadingStore)
 
-  return <div>Hello "/alarms/"!</div>
+  return (
+    <div className="w-full min-h-[calc(100vh-140px)] bg-zinc-950 flex items-center justify-center p-8">
+      <div className="flex flex-col xl:flex-row gap-4 items-stretch justify-center w-full max-w-[1400px]">
+        {/* Flags Section */}
+        <div className="w-full xl:w-[40%] min-h-[560px]">
+          <Flags isLoading={isLoading} />
+        </div>
+
+        {/* Separator */}
+        <Separator orientation="vertical" className="hidden xl:block h-auto bg-zinc-700" />
+        <Separator orientation="horizontal" className="xl:hidden bg-zinc-700" />
+
+        {/* Limits Section */}
+        <div className="w-full xl:w-[60%] min-h-[560px]">
+          <Limits isLoading={isLoading} />
+        </div>
+      </div>
+    </div>
+  )
 }

@@ -19,3 +19,7 @@ export const CardTitleComponent = ({ className = '', ...props }) => (
 export const CardContentComponent = ({ className = '', ...props }) => (
   <div className={`p-6 pt-0 ${className}`} {...props} />
 )
+
+export const CardFooterComponent = ({ className = '', ...props }) => (
+  <div className={`p-6 pt-0 ${className}`} {...props} />
+)

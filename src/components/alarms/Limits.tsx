@@ -182,8 +182,8 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
             </>
           ) : (
             <>
-              <Settings className="text-slate-300" size={28} />
-              <Label className="text-xl font-bold uppercase tracking-wider text-slate-300">
+              <Settings className="text-slate-100" size={28} />
+              <Label className="text-xl font-bold uppercase tracking-wider text-slate-100">
                 Limites dos Alarmes e Avisos
               </Label>
             </>
@@ -252,25 +252,25 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
               </div>
               <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Alarme</span>
-                <div className="px-2 py-0.5 bg-red-900 text-white rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-red-900 text-slate-100 rounded text-xs font-black uppercase mt-1">
                   ALTO
                 </div>
               </div>
               <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Aviso</span>
-                <div className="px-2 py-0.5 bg-yellow-500 text-zinc-950 rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-yellow-600 text-slate-100 rounded text-xs font-black uppercase mt-1">
                   ALTO
                 </div>
               </div>
               <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Aviso</span>
-                <div className="px-2 py-0.5 bg-yellow-500 text-zinc-950 rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-yellow-600 text-slate-100 rounded text-xs font-black uppercase mt-1">
                   BAIXO
                 </div>
               </div>
               <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Alarme</span>
-                <div className="px-2 py-0.5 bg-red-900 text-white rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-red-900 text-slate-100 rounded text-xs font-black uppercase mt-1">
                   BAIXO
                 </div>
               </div>
@@ -295,7 +295,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                 >
                   {/* Parameter Name */}
                   <div className="px-3 py-4 border-r border-zinc-800 flex items-center gap-2">
-                    <span className="text-base font-medium text-slate-300">
+                    <span className="text-base font-medium text-slate-100">
                       {limit.parameter.replace(/\([^)]*\)/, `(${displayUnit})`)}
                     </span>
                     {isRxPower && !isEditing && (
@@ -307,7 +307,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                       >
                         <SelectTrigger
                           size="sm"
-                          className="h-6 px-2 py-0 text-xs bg-zinc-700 border-zinc-600 text-slate-300 min-w-[60px]"
+                          className="h-6 px-2 py-0 text-xs bg-zinc-700 border-zinc-600 text-slate-100 min-w-[60px]"
                         >
                           <SelectValue />
                         </SelectTrigger>
@@ -316,7 +316,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                             <SelectItem
                               key={unit}
                               value={unit}
-                              className="text-slate-300 focus:bg-zinc-700 focus:text-slate-100"
+                              className="text-slate-100 focus:bg-zinc-700 focus:text-slate-100"
                             >
                               {unit}
                             </SelectItem>
@@ -340,10 +340,10 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                             limit.unit,
                           )
                         }
-                        className="w-full px-1 py-1 bg-red-900 text-white rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
+                        className="w-full px-1 py-1 bg-red-900 text-slate-100 rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-red-900 text-white rounded text-base font-bold text-center">
+                      <div className="w-full px-2 py-1 bg-red-900 text-slate-100 rounded text-base font-bold text-center">
                         {formatValue(
                           getDisplayValue(limit.alarmHigh, limit.unit),
                           displayUnit,
@@ -366,10 +366,10 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                             limit.unit,
                           )
                         }
-                        className="w-full px-1 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
+                        className="w-full px-1 py-1 bg-yellow-600 text-slate-100 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center">
+                      <div className="w-full px-2 py-1 bg-yellow-600 text-slate-100 rounded text-base font-bold text-center">
                         {formatValue(
                           getDisplayValue(limit.warningHigh, limit.unit),
                           displayUnit,
@@ -392,10 +392,10 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                             limit.unit,
                           )
                         }
-                        className="w-full px-1 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
+                        className="w-full px-1 py-1 bg-yellow-600 text-slate-100 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center">
+                      <div className="w-full px-2 py-1 bg-yellow-600 text-slate-100 rounded text-base font-bold text-center">
                         {formatValue(
                           getDisplayValue(limit.warningLow, limit.unit),
                           displayUnit,
@@ -418,10 +418,10 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                             limit.unit,
                           )
                         }
-                        className="w-full px-1 py-1 bg-red-900 text-white rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
+                        className="w-full px-1 py-1 bg-red-900 text-slate-100 rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-red-900 text-white rounded text-base font-bold text-center">
+                      <div className="w-full px-2 py-1 bg-red-900 text-slate-100 rounded text-base font-bold text-center">
                         {formatValue(
                           getDisplayValue(limit.alarmLow, limit.unit),
                           displayUnit,
@@ -452,7 +452,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                     ) : (
                       <button
                         onClick={() => handleEdit(limit)}
-                        className="flex items-center justify-center w-6 h-6 rounded hover:bg-zinc-700 transition-colors text-slate-400 hover:text-slate-300"
+                        className="flex items-center justify-center w-6 h-6 rounded hover:bg-zinc-700 transition-colors text-slate-400 hover:text-slate-100"
                         aria-label="Editar limites"
                       >
                         <SquarePen size={20} />
@@ -483,7 +483,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
             <div className="flex items-center gap-3">
               <Label
                 htmlFor="global-notifications"
-                className="text-sm font-medium text-slate-300 text-right cursor-pointer"
+                className="text-sm font-medium text-slate-100 text-right cursor-pointer"
               >
                 Ativar notificações de flags em toda a dashboard
               </Label>
@@ -492,7 +492,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
             <div className="flex items-center gap-3">
               <Label
                 htmlFor="auto-calibration"
-                className="text-sm font-medium text-slate-300 text-right cursor-pointer"
+                className="text-sm font-medium text-slate-100 text-right cursor-pointer"
               >
                 Realizar calibração automática ao exceder limites
               </Label>

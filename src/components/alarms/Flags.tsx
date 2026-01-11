@@ -109,8 +109,8 @@ export function Flags({ isLoading }: { isLoading: boolean }) {
 
   const getTypeStyles = (type: 'ALTO' | 'BAIXO') => {
     return type === 'ALTO'
-      ? 'bg-red-900 text-white'
-      : 'bg-yellow-500 text-white'
+      ? 'bg-red-900 text-slate-300'
+      : 'bg-yellow-600 text-slate-100'
   }
 
   return (

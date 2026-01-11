@@ -1,7 +1,5 @@
 import { useStore } from '@tanstack/react-store'
 import { FlagTriangleRight, Trash2, TriangleAlert } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Store } from '@tanstack/store'
 import { Skeleton } from '../ui/skeleton'
 import { Label } from '../ui/label'
 import {
@@ -10,101 +8,17 @@ import {
   CardHeaderComponent,
 } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { alarmStore, removeAlarm } from '@/stores/alarmStore'
+import type { AlarmFlag } from '@/stores/alarmStore'
 
-interface AlarmFlag {
-  id: string
-  parameter: string
-  value: number | string
-  unit: string
-  type: 'ALTO' | 'BAIXO'
-  timestamp: string
-}
-
-// Mock data store
-export const flagsStore = new Store<Array<AlarmFlag>>([
-  {
-    id: '1',
-    parameter: 'Temperatura (°C)',
-    value: 33,
-    unit: '°C',
-    type: 'ALTO',
-    timestamp: '2024-01-15 18:20:43',
-  },
-  {
-    id: '2',
-    parameter: 'Tensão (V)',
-    value: 1.33,
-    unit: 'V',
-    type: 'BAIXO',
-    timestamp: '2024-01-15 18:20:43',
-  },
-  {
-    id: '3',
-    parameter: 'Corrente (mA)',
-    value: 32.04,
-    unit: 'mA',
-    type: 'ALTO',
-    timestamp: '2024-01-15 18:20:43',
-  },
-])
-
-// Mock de novos alarmes que podem surgir
-const mockAlarms: Array<AlarmFlag> = [
-  {
-    id: '4',
-    parameter: 'Temperatura (°C)',
-    value: 13,
-    unit: '°C',
-    type: 'BAIXO',
-    timestamp: new Date().toLocaleString('pt-BR'),
-  },
-  {
-    id: '5',
-    parameter: 'RX Power (dBm)',
-    value: -8.0,
-    unit: 'dBm',
-    type: 'ALTO',
-    timestamp: new Date().toLocaleString('pt-BR'),
-  },
-  {
-    id: '6',
-    parameter: 'RX Power (dBm)',
-    value: -7.5,
-    unit: 'dBm',
-    type: 'ALTO',
-    timestamp: new Date().toLocaleString('pt-BR'),
-  },
-]
+// Re-exporting AlarmFlag for compatibility if needed, but better to import from store
+export type { AlarmFlag }
 
 export function Flags({ isLoading }: { isLoading: boolean }) {
-  const flags = useStore(flagsStore)
-  const [mockIndex, setMockIndex] = useState(0)
-  const [animatingId, setAnimatingId] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (isLoading) return
-
-    const interval = setInterval(() => {
-      if (mockIndex < mockAlarms.length) {
-        const newAlarm = {
-          ...mockAlarms[mockIndex],
-          id: `${Date.now()}`,
-          timestamp: new Date().toLocaleString('pt-BR'),
-        }
-
-        setAnimatingId(newAlarm.id)
-        flagsStore.setState([...flagsStore.state, newAlarm])
-        setMockIndex((prev) => prev + 1)
-
-        setTimeout(() => setAnimatingId(null), 500)
-      }
-    }, 2000)
-
-    return () => clearInterval(interval)
-  }, [mockIndex, isLoading])
+  const flags = useStore(alarmStore)
 
   const handleDelete = (id: string) => {
-    flagsStore.setState(flagsStore.state.filter((flag) => flag.id !== id))
+    removeAlarm(id)
   }
 
   const getTypeStyles = (type: 'ALTO' | 'BAIXO') => {
@@ -171,8 +85,6 @@ export function Flags({ isLoading }: { isLoading: boolean }) {
                   key={flag.id}
                   className={cn(
                     'flex items-center gap-3 p-4 bg-zinc-900/50 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-all',
-                    animatingId === flag.id &&
-                    'animate-in fade-in slide-in-from-top-2 duration-500',
                   )}
                 >
                   {/* Ícone de Warning */}

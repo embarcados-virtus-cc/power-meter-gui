@@ -14,7 +14,7 @@ function AlarmsPage() {
 
   return (
     <div className="w-full min-h-max bg-zinc-950 flex items-center justify-center p-8">
-      <div className="flex flex-col xl:flex-row gap-4 items-stretch justify-center w-full max-w-350">
+      <div className="flex flex-col xl:flex-row gap-3 items-stretch justify-center w-full max-w-350">
         {/* Flags Section */}
         <div className="w-full xl:w-[40%] min-h-140">
           <Flags isLoading={isLoading} />

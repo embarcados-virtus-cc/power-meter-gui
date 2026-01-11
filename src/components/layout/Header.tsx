@@ -69,6 +69,7 @@ export function Header() {
                       transition-colors
                       px-3 py-2 rounded-md
                     "
+                    asChild
                   >
                     <Link
                       to="/"
@@ -101,6 +102,7 @@ export function Header() {
                       transition-colors
                       px-3 py-2 rounded-md
                     "
+                    asChild
                   >
                     <Link
                       to="/alarms"
@@ -133,6 +135,7 @@ export function Header() {
                       transition-colors
                       px-3 py-2 rounded-md
                     "
+                    asChild
                   >
                     <Link
                       to="/tuning"
@@ -165,6 +168,7 @@ export function Header() {
                       transition-colors
                       px-3 py-2 rounded-md
                     "
+                    asChild
                   >
                     <Link
                       to="/about"

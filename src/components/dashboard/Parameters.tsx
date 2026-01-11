@@ -85,9 +85,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
                 className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg min-h-24"
               >
                 <div className="flex flex-col gap-2">
-                  {param.icon && (
-                    <param.icon className="text-slate-300" size={24} />
-                  )}
+                  <param.icon className="text-slate-300" size={24} />
                   <Label className="text-xs uppercase tracking-wide text-slate-300">
                     {param.label}
                   </Label>

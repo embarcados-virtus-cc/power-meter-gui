@@ -1,6 +1,7 @@
 import { useStore } from '@tanstack/react-store'
-import { Settings, SquarePen, Check, X } from 'lucide-react'
+import { Check, Settings, SquarePen, X } from 'lucide-react'
 import { useState } from 'react'
+import { Store } from '@tanstack/store'
 import { Skeleton } from '../ui/skeleton'
 import { Label } from '../ui/label'
 import {
@@ -16,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Store } from '@tanstack/store'
 import { Switch } from '@/components/ui/switch'
 
 interface AlarmLimit {
@@ -30,10 +30,10 @@ interface AlarmLimit {
 }
 
 type RxPowerUnit = 'dBm' | 'dB' | 'mW' | 'nW'
-const RX_POWER_UNITS: RxPowerUnit[] = ['dBm', 'dB', 'mW', 'nW']
+const RX_POWER_UNITS: Array<RxPowerUnit> = ['dBm', 'dB', 'mW', 'nW']
 
 // Mock data store
-export const limitsStore = new Store<AlarmLimit[]>([
+export const limitsStore = new Store<Array<AlarmLimit>>([
   {
     id: '1',
     parameter: 'Temperatura (°C)',
@@ -96,7 +96,11 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
     return value.toFixed(decimals)
   }
 
-  const convertRxPower = (value: number, fromUnit: string, toUnit: RxPowerUnit): number => {
+  const convertRxPower = (
+    value: number,
+    fromUnit: string,
+    toUnit: RxPowerUnit,
+  ): number => {
     // Convert to dBm first
     let dBm = value
     if (fromUnit === 'mW') {
@@ -112,7 +116,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
       return dBm
     } else if (toUnit === 'mW') {
       return Math.pow(10, dBm / 10)
-    } else if (toUnit === 'nW') {
+    } else {
       return Math.pow(10, dBm / 10) * 1e6
     }
     return value
@@ -169,7 +173,7 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
 
   return (
     <CardComponent className="relative overflow-hidden w-full flex flex-col h-full">
-      <CardHeaderComponent className="pb-6">
+      <CardHeaderComponent className="pb-8">
         <div className="flex items-center gap-3">
           {isLoading ? (
             <>
@@ -189,52 +193,82 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
 
       <CardContentComponent className="flex-1">
         {isLoading ? (
-          <div className="flex flex-col gap-4 w-full">
-            <div className="flex gap-2">
+          <div className="w-full border border-zinc-800 rounded-lg overflow-hidden">
+            {/* Skeleton Header */}
+            <div className="grid grid-cols-[220px_1fr_1fr_1fr_1fr_50px] bg-zinc-800/50">
+              <div className="flex items-center justify-center px-3 py-2 border-r border-zinc-800">
+                <Skeleton className="w-24 h-5 bg-zinc-800 rounded" />
+              </div>
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="w-14 h-8 bg-zinc-800 rounded" />
+                <div
+                  key={i}
+                  className="flex flex-col items-center justify-center py-2 border-r border-zinc-800 gap-1"
+                >
+                  <Skeleton className="w-12 h-4 bg-zinc-800 rounded" />
+                  <Skeleton className="w-10 h-4 bg-zinc-800 rounded" />
+                </div>
               ))}
+              <div className="flex items-center justify-center">
+                {/* Empty header action */}
+              </div>
             </div>
+
+            {/* Skeleton Rows */}
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="flex flex-col gap-2">
-                <Skeleton className="w-32 h-5 bg-zinc-800 rounded" />
-                <div className="flex gap-2">
-                  {Array.from({ length: 4 }).map((_, j) => (
-                    <Skeleton
-                      key={j}
-                      className="w-14 h-8 bg-zinc-800 rounded"
-                    />
-                  ))}
+              <div
+                key={i}
+                className={`grid grid-cols-[220px_1fr_1fr_1fr_1fr_50px] ${i < 3 ? 'border-b border-zinc-800' : ''}`}
+              >
+                {/* Parameter */}
+                <div className="px-3 py-4 border-r border-zinc-800 flex items-center gap-2">
+                  <Skeleton className="w-32 h-5 bg-zinc-800 rounded" />
+                </div>
+
+                {/* Values columns */}
+                {Array.from({ length: 4 }).map((__, j) => (
+                  <div
+                    key={j}
+                    className="flex items-center justify-center py-4 px-2 border-r border-zinc-800"
+                  >
+                    <Skeleton className="w-full h-7 bg-zinc-800 rounded" />
+                  </div>
+                ))}
+
+                {/* Action */}
+                <div className="flex items-center justify-center py-2">
+                  <Skeleton className="w-6 h-6 bg-zinc-800 rounded" />
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="w-full border border-zinc-700 rounded-lg overflow-hidden">
+          <div className="w-full border border-zinc-800 rounded-lg overflow-hidden">
             {/* Table Header */}
             <div className="grid grid-cols-[220px_1fr_1fr_1fr_1fr_50px] bg-zinc-800/50">
-              <div className="flex items-center justify-center px-3 py-2 border-r border-zinc-700">
-                <span className="text-base font-semibold text-slate-400">Parâmetro</span>
+              <div className="flex items-center justify-center px-3 py-2 border-r border-zinc-800">
+                <span className="text-base font-semibold text-slate-400">
+                  Parâmetro
+                </span>
               </div>
-              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-700">
+              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Alarme</span>
                 <div className="px-2 py-0.5 bg-red-900 text-white rounded text-xs font-black uppercase mt-1">
                   ALTO
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-700">
+              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Aviso</span>
-                <div className="px-2 py-0.5 bg-yellow-400 text-zinc-950 rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-yellow-500 text-zinc-950 rounded text-xs font-black uppercase mt-1">
                   ALTO
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-700">
+              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Aviso</span>
-                <div className="px-2 py-0.5 bg-yellow-400 text-zinc-950 rounded text-xs font-black uppercase mt-1">
+                <div className="px-2 py-0.5 bg-yellow-500 text-zinc-950 rounded text-xs font-black uppercase mt-1">
                   BAIXO
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-700">
+              <div className="flex flex-col items-center justify-center py-2 border-r border-zinc-800">
                 <span className="text-sm font-bold text-slate-400">Alarme</span>
                 <div className="px-2 py-0.5 bg-red-900 text-white rounded text-xs font-black uppercase mt-1">
                   BAIXO
@@ -257,21 +291,33 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
               return (
                 <div
                   key={limit.id}
-                  className={`grid grid-cols-[220px_1fr_1fr_1fr_1fr_50px] ${!isLast ? 'border-b border-zinc-700' : ''} hover:bg-zinc-800/30 transition-colors`}
+                  className={`grid grid-cols-[220px_1fr_1fr_1fr_1fr_50px] ${!isLast ? 'border-b border-zinc-800' : ''} hover:bg-zinc-800/30 transition-colors`}
                 >
                   {/* Parameter Name */}
-                  <div className="px-3 py-4 border-r border-zinc-700 flex items-center gap-2">
+                  <div className="px-3 py-4 border-r border-zinc-800 flex items-center gap-2">
                     <span className="text-base font-medium text-slate-300">
                       {limit.parameter.replace(/\([^)]*\)/, `(${displayUnit})`)}
                     </span>
                     {isRxPower && !isEditing && (
-                      <Select value={rxPowerUnit} onValueChange={(value) => setRxPowerUnit(value as RxPowerUnit)}>
-                        <SelectTrigger size="sm" className="h-6 px-2 py-0 text-xs bg-zinc-700 border-zinc-600 text-slate-300 min-w-[60px]">
+                      <Select
+                        value={rxPowerUnit}
+                        onValueChange={(value) =>
+                          setRxPowerUnit(value as RxPowerUnit)
+                        }
+                      >
+                        <SelectTrigger
+                          size="sm"
+                          className="h-6 px-2 py-0 text-xs bg-zinc-700 border-zinc-600 text-slate-300 min-w-[60px]"
+                        >
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-zinc-800 border-zinc-700">
+                        <SelectContent className="bg-zinc-800 border-zinc-800">
                           {RX_POWER_UNITS.map((unit) => (
-                            <SelectItem key={unit} value={unit} className="text-slate-300 focus:bg-zinc-700 focus:text-slate-100">
+                            <SelectItem
+                              key={unit}
+                              value={unit}
+                              className="text-slate-300 focus:bg-zinc-700 focus:text-slate-100"
+                            >
                               {unit}
                             </SelectItem>
                           ))}
@@ -281,77 +327,105 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
                   </div>
 
                   {/* Alarme Alto */}
-                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-700">
+                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-800">
                     {isEditing ? (
                       <input
                         type="number"
                         step={step}
                         value={currentValues.alarmHigh}
                         onChange={(e) =>
-                          handleInputChange('alarmHigh', e.target.value, limit.unit)
+                          handleInputChange(
+                            'alarmHigh',
+                            e.target.value,
+                            limit.unit,
+                          )
                         }
                         className="w-full px-1 py-1 bg-red-900 text-white rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
                       />
                     ) : (
                       <div className="w-full px-2 py-1 bg-red-900 text-white rounded text-base font-bold text-center">
-                        {formatValue(getDisplayValue(limit.alarmHigh, limit.unit), displayUnit)}
+                        {formatValue(
+                          getDisplayValue(limit.alarmHigh, limit.unit),
+                          displayUnit,
+                        )}
                       </div>
                     )}
                   </div>
 
                   {/* Aviso Alto */}
-                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-700">
+                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-800">
                     {isEditing ? (
                       <input
                         type="number"
                         step={step}
                         value={currentValues.warningHigh}
                         onChange={(e) =>
-                          handleInputChange('warningHigh', e.target.value, limit.unit)
+                          handleInputChange(
+                            'warningHigh',
+                            e.target.value,
+                            limit.unit,
+                          )
                         }
-                        className="w-full px-1 py-1 bg-yellow-400 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
+                        className="w-full px-1 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-yellow-400 text-zinc-950 rounded text-base font-bold text-center">
-                        {formatValue(getDisplayValue(limit.warningHigh, limit.unit), displayUnit)}
+                      <div className="w-full px-2 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center">
+                        {formatValue(
+                          getDisplayValue(limit.warningHigh, limit.unit),
+                          displayUnit,
+                        )}
                       </div>
                     )}
                   </div>
 
                   {/* Aviso Baixo */}
-                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-700">
+                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-800">
                     {isEditing ? (
                       <input
                         type="number"
                         step={step}
                         value={currentValues.warningLow}
                         onChange={(e) =>
-                          handleInputChange('warningLow', e.target.value, limit.unit)
+                          handleInputChange(
+                            'warningLow',
+                            e.target.value,
+                            limit.unit,
+                          )
                         }
-                        className="w-full px-1 py-1 bg-yellow-400 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
+                        className="w-full px-1 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center border border-yellow-300 focus:outline-none focus:border-yellow-200"
                       />
                     ) : (
-                      <div className="w-full px-2 py-1 bg-yellow-400 text-zinc-950 rounded text-base font-bold text-center">
-                        {formatValue(getDisplayValue(limit.warningLow, limit.unit), displayUnit)}
+                      <div className="w-full px-2 py-1 bg-yellow-500 text-zinc-950 rounded text-base font-bold text-center">
+                        {formatValue(
+                          getDisplayValue(limit.warningLow, limit.unit),
+                          displayUnit,
+                        )}
                       </div>
                     )}
                   </div>
 
                   {/* Alarme Baixo */}
-                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-700">
+                  <div className="flex items-center justify-center py-4 px-2 border-r border-zinc-800">
                     {isEditing ? (
                       <input
                         type="number"
                         step={step}
                         value={currentValues.alarmLow}
                         onChange={(e) =>
-                          handleInputChange('alarmLow', e.target.value, limit.unit)
+                          handleInputChange(
+                            'alarmLow',
+                            e.target.value,
+                            limit.unit,
+                          )
                         }
                         className="w-full px-1 py-1 bg-red-900 text-white rounded text-base font-bold text-center border border-red-800 focus:outline-none focus:border-red-600"
                       />
                     ) : (
                       <div className="w-full px-2 py-1 bg-red-900 text-white rounded text-base font-bold text-center">
-                        {formatValue(getDisplayValue(limit.alarmLow, limit.unit), displayUnit)}
+                        {formatValue(
+                          getDisplayValue(limit.alarmLow, limit.unit),
+                          displayUnit,
+                        )}
                       </div>
                     )}
                   </div>
@@ -392,22 +466,41 @@ export function Limits({ isLoading }: { isLoading: boolean }) {
         )}
       </CardContentComponent>
 
-      {!isLoading && (
-        <CardFooterComponent className="flex flex-col gap-3 items-end pt-6 border-t border-zinc-800">
-          <div className="flex items-center gap-3">
-            <Label htmlFor="global-notifications" className="text-sm font-medium text-slate-300 text-right cursor-pointer">
-              Ativar notificações em toda a dashboard
-            </Label>
-            <Switch id="global-notifications" defaultChecked />
-          </div>
-          <div className="flex items-center gap-3">
-            <Label htmlFor="auto-calibration" className="text-sm font-medium text-slate-300 text-right cursor-pointer">
-              Realizar calibração automática ao exceder limites
-            </Label>
-            <Switch id="auto-calibration" />
-          </div>
-        </CardFooterComponent>
-      )}
+      <CardFooterComponent className="flex flex-col gap-3 items-end pt-6 border-t border-zinc-800">
+        {isLoading ? (
+          <>
+            <div className="flex items-center gap-3">
+              <Skeleton className="w-64 h-4 bg-zinc-800 rounded" />
+              <Skeleton className="w-9 h-5 bg-zinc-800 rounded-full" />
+            </div>
+            <div className="flex items-center gap-3">
+              <Skeleton className="w-80 h-4 bg-zinc-800 rounded" />
+              <Skeleton className="w-9 h-5 bg-zinc-800 rounded-full" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center gap-3">
+              <Label
+                htmlFor="global-notifications"
+                className="text-sm font-medium text-slate-300 text-right cursor-pointer"
+              >
+                Ativar notificações em toda a dashboard
+              </Label>
+              <Switch id="global-notifications" defaultChecked />
+            </div>
+            <div className="flex items-center gap-3">
+              <Label
+                htmlFor="auto-calibration"
+                className="text-sm font-medium text-slate-300 text-right cursor-pointer"
+              >
+                Realizar calibração automática ao exceder limites
+              </Label>
+              <Switch id="auto-calibration" />
+            </div>
+          </>
+        )}
+      </CardFooterComponent>
     </CardComponent>
   )
 }

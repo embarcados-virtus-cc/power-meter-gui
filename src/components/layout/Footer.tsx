@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Code2, Github, Mail, MapPin } from 'lucide-react'
+import { Github } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Separator } from '@/components/ui/separator'
 
 export function Footer() {
   const [isLoading, setIsLoading] = useState(true)
-  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -44,4 +44,4 @@ Outras configurações relacionadas a desenvolver código de fato, estão no arq
 
 ## Penpot
 
-Todo o design das telas foi feito no aplicativo penpot e as mesmas podem ser visualizadas através do arquivo `docs/design.penpot`.
+Todo o design das telas foi feito no aplicativo penpot e as mesmas podem ser visualizadas através do arquivo `docs/Power Meter GUI.penpot`.

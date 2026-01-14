@@ -68,18 +68,27 @@ export function History({ isLoading }: { isLoading: boolean }) {
     <CardComponent>
       <CardHeaderComponent>
         <div className="flex items-center gap-3">
-          <FolderClock className="text-slate-300" size={24} />
-          <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
-            Histórico de Potência Óptica Recebida (RX)
-          </Label>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-6 h-6 bg-zinc-800 rounded-md" />
+              <Skeleton className="w-64 h-6 bg-zinc-800 rounded-md" />
+            </>
+          ) : (
+            <>
+              <FolderClock className="text-slate-300" size={24} />
+              <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
+                Histórico de Potência Óptica Recebida (RX)
+              </Label>
+            </>
+          )}
         </div>
       </CardHeaderComponent>
       <CardContentComponent className="p-0 min-h-60">
         {isLoading ? (
-          <div className="w-full h-60 px-6 pb-6 flex items-center justify-center">
+          <div className="w-full h-60 px-6 pb-6">
             <div className="w-full h-full flex items-center justify-between gap-1 relative">
               {/* Linha de referência no topo (0 dBm) para range padrão de LANs */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-slate-700" />
+              <div className="absolute top-0 left-0 right-0 h-px bg-none" />
               {Array.from({ length: 15 }).map((_, i) => {
                 // Simula valores no range padrão de LANs (0 a -10 dBm)
                 const randomValue = Math.random() * 10 - 10 // -10 a 0
@@ -97,10 +106,6 @@ export function History({ isLoading }: { isLoading: boolean }) {
                 )
               })}
             </div>
-          </div>
-        ) : historyData.length === 0 ? (
-          <div className="w-full h-60 px-6 pb-6 flex items-center justify-center">
-            <span className="text-slate-400 text-sm">Aguardando dados...</span>
           </div>
         ) : (
           <div className="w-full h-60 px-6 pb-6">

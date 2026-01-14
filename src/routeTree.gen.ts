@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TuningIndexRouteImport } from './routes/tuning/index'
+import { Route as AlarmsIndexRouteImport } from './routes/alarms/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TuningIndexRoute = TuningIndexRouteImport.update({
+  id: '/tuning/',
+  path: '/tuning/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlarmsIndexRoute = AlarmsIndexRouteImport.update({
+  id: '/alarms/',
+  path: '/alarms/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alarms': typeof AlarmsIndexRoute
+  '/tuning': typeof TuningIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alarms': typeof AlarmsIndexRoute
+  '/tuning': typeof TuningIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alarms/': typeof AlarmsIndexRoute
+  '/tuning/': typeof TuningIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/alarms' | '/tuning'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/alarms' | '/tuning'
+  id: '__root__' | '/' | '/alarms/' | '/tuning/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlarmsIndexRoute: typeof AlarmsIndexRoute
+  TuningIndexRoute: typeof TuningIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tuning/': {
+      id: '/tuning/'
+      path: '/tuning'
+      fullPath: '/tuning'
+      preLoaderRoute: typeof TuningIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alarms/': {
+      id: '/alarms/'
+      path: '/alarms'
+      fullPath: '/alarms'
+      preLoaderRoute: typeof AlarmsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlarmsIndexRoute: AlarmsIndexRoute,
+  TuningIndexRoute: TuningIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

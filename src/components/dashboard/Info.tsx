@@ -25,10 +25,19 @@ export function Info({ isLoading }: { isLoading: boolean }) {
     <CardComponent className="w-full flex flex-col">
       <CardHeaderComponent>
         <div className="flex items-center gap-3">
-          <Package className="text-slate-300" size={24} />
-          <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
-            Módulo SFP e Informação de DDM
-          </Label>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-6 h-6 bg-zinc-800 rounded-md" />
+              <Skeleton className="w-64 h-6 bg-zinc-800 rounded-md" />
+            </>
+          ) : (
+            <>
+              <Package className="text-slate-300" size={24} />
+              <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
+                Módulo SFP e Informação de DDM
+              </Label>
+            </>
+          )}
         </div>
       </CardHeaderComponent>
       <CardContentComponent className="min-h-59 2xl:min-h-66 flex-1 flex flex-col">
@@ -43,9 +52,9 @@ export function Info({ isLoading }: { isLoading: boolean }) {
                 </div>
               ))}
             </div>
-            <div className="w-full h-px bg-zinc-950" />
+            <div className="w-full h-px bg-zinc-950 my-2" />
             {/* Segunda Seção */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 pt-4">
               {[1, 2].map((i) => (
                 <div key={i} className="flex flex-col gap-2">
                   <Skeleton className="w-32 h-6 rounded-md bg-zinc-800" />

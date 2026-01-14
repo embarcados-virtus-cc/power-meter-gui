@@ -12,7 +12,7 @@ export const parametersStore = new Store({
 })
 
 // Store para History (array de valores em dBm) - começa vazio e vai adicionando
-export const historyStore = new Store<number[]>([])
+export const historyStore = new Store<Array<number>>([])
 
 // Limite máximo de pontos no histórico (30 pontos = 60 segundos de dados a cada 2s)
 const MAX_HISTORY_POINTS = 30

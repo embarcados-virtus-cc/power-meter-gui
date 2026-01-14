@@ -43,57 +43,79 @@ export function RxPower({ isLoading }: { isLoading: boolean }) {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <BatteryMedium className="text-slate-300" size={24} />
-              <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
-                Potência Óptica (RX)
-              </Label>
+              {isLoading ? (
+                <>
+                  <Skeleton className="w-6 h-6 bg-zinc-800 rounded-md" />
+                  <Skeleton className="w-48 h-6 bg-zinc-800 rounded-md" />
+                </>
+              ) : (
+                <>
+                  <BatteryMedium className="text-slate-300" size={24} />
+                  <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
+                    Potência Óptica (RX)
+                  </Label>
+                </>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
               {/* View Mode Selector */}
               <div className="flex items-center p-1 bg-zinc-900/50 rounded-md border border-zinc-800">
-                <button
-                  onClick={() => setViewMode('gauge')}
-                  className={cn(
-                    'px-3 py-1 text-[10px] font-bold uppercase transition-all rounded-sm',
-                    viewMode === 'gauge'
-                      ? 'bg-zinc-800 text-slate-300 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-400',
-                  )}
-                >
-                  Medidor
-                </button>
-                <button
-                  onClick={() => setViewMode('digital')}
-                  className={cn(
-                    'px-3 py-1 text-[10px] font-bold uppercase transition-all rounded-sm',
-                    viewMode === 'digital'
-                      ? 'bg-zinc-800 text-slate-300 shadow-sm'
-                      : 'text-slate-400 hover:text-slate-400',
-                  )}
-                >
-                  Digital
-                </button>
+                {isLoading ? (
+                  <div className="flex items-center gap-1">
+                    <Skeleton className="w-[52px] h-[22px] rounded-sm bg-zinc-800" />
+                    <Skeleton className="w-[52px] h-[22px] rounded-sm bg-zinc-800" />
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setViewMode('gauge')}
+                      className={cn(
+                        'px-3 py-1 text-[10px] font-bold uppercase transition-all rounded-sm',
+                        viewMode === 'gauge'
+                          ? 'bg-zinc-800 text-slate-300 shadow-sm'
+                          : 'text-slate-400 hover:text-slate-400',
+                      )}
+                    >
+                      Medidor
+                    </button>
+                    <button
+                      onClick={() => setViewMode('digital')}
+                      className={cn(
+                        'px-3 py-1 text-[10px] font-bold uppercase transition-all rounded-sm',
+                        viewMode === 'digital'
+                          ? 'bg-zinc-800 text-slate-300 shadow-sm'
+                          : 'text-slate-400 hover:text-slate-400',
+                      )}
+                    >
+                      Digital
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
 
           {/* Unit Selector */}
           <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
-            {(['dBm', 'dB', 'mW', 'µW', 'nW'] as const).map((u) => (
-              <button
-                key={u}
-                onClick={() => setUnit(u)}
-                className={cn(
-                  'px-2 py-0.5 text-[11px] font-black uppercase border transition-all rounded',
-                  unit === u
-                    ? 'bg-slate-300 text-zinc-950 border-slate-300'
-                    : 'bg-transparent text-slate-400 border-zinc-800 hover:border-zinc-700',
-                )}
-              >
-                {u}
-              </button>
-            ))}
+            {isLoading
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <Skeleton key={i} className="w-10 h-5 rounded bg-zinc-800" />
+                ))
+              : (['dBm', 'dB', 'mW', 'µW', 'nW'] as const).map((u) => (
+                  <button
+                    key={u}
+                    onClick={() => setUnit(u)}
+                    className={cn(
+                      'px-2 py-0.5 text-[11px] font-black uppercase border transition-all rounded',
+                      unit === u
+                        ? 'bg-slate-300 text-zinc-950 border-slate-300'
+                        : 'bg-transparent text-slate-400 border-zinc-800 hover:border-zinc-700',
+                    )}
+                  >
+                    {u}
+                  </button>
+                ))}
           </div>
         </div>
       </CardHeaderComponent>
@@ -101,8 +123,9 @@ export function RxPower({ isLoading }: { isLoading: boolean }) {
       <CardContentComponent className="min-h-48 flex-1 flex flex-col items-center justify-center">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center gap-4">
-            <Skeleton className="w-40 h-40 rounded-full bg-zinc-800" />
-            <Skeleton className="w-20 h-6 bg-zinc-800" />
+            <div className="relative w-64 flex items-center justify-center">
+              <Skeleton className="w-56 h-56 rounded-full bg-zinc-800" />
+            </div>
           </div>
         ) : (
           <div className="w-full flex-1 flex flex-col items-center justify-center">
@@ -151,7 +174,7 @@ export function RxPower({ isLoading }: { isLoading: boolean }) {
                       {unit}
                     </span>
                   </div>
-                  <div className="h-[1px] w-48 bg-zinc-800" />
+                  <div className="h-px w-48 bg-zinc-800" />
 
                   <div className="grid grid-cols-2 gap-x-12 gap-y-2">
                     <div className="flex flex-col items-center">

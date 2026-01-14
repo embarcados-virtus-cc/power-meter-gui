@@ -8,15 +8,19 @@ Link para a biblioteca: [Shadcn](https://ui.shadcn.com/).
 ### Adicionando um componente novo:
 
 Apenas use o seguinte comando para adicionar:
+
 ```bash
 pnpm dlx shadcn@latest add alert
 ```
 
 Importe o componente na aplicação da seguinte forma:
+
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 ```
+
 E use o mesmo dentro do código:
+
 ```tsx
 <Alert variant="default | destructive">
   <Terminal />
@@ -41,8 +45,9 @@ No entanto, a partir do momento que temos duas rotas, é necessário usar um com
 ### Adicionando componentes Links:
 
 Para fazer a navegação, vai ser necessário importar o componente `Link` de `@tanstack/react-router`.
+
 ```tsx
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 ```
 
 Então, em qualquer lugar do projeto
@@ -51,15 +56,17 @@ Then anywhere in your JSX you can use it like so:
 ```tsx
 <Link to="/about">About</Link>
 ```
+
 Isso vai criar um link que navega para a rota `/about`.
 
 ### Utilizando Layouts
 
 No sistema de roteamento baseado em arquivos, o arquivo `src/routes/__root.tsx` é um arquivo para configuração de layout de rotas, tudo que você adicionar nesse arquivo, vai aparecer em todas as rotas. O conteúdo das rotas de fato, aparece onde você definir a tag `<Outlet />` no arquivo, por exemplo:
+
 ```tsx
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: () => (
@@ -81,6 +88,7 @@ export const Route = createRootRoute({
 Naturalmente, em Typescript existem diversas formas de fazer requisição de dados de APIs, mas nessa aplicação estamos usando o TanStack Query e também o `loader` padrão do TanStack Router para casos onde a informação precisa ser carregada antes da rota ser renderizada.
 
 Exemplo de TanStack Query:
+
 ```tsx
 import {
   QueryClient,
@@ -124,29 +132,30 @@ function Example() {
 ```
 
 Exemplo de uso do `loader`:
+
 ```tsx
 const peopleRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/people",
+  path: '/people',
   loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
+    const response = await fetch('https://swapi.dev/api/people')
     return response.json() as Promise<{
       results: {
-        name: string;
-      }[];
-    }>;
+        name: string
+      }[]
+    }>
   },
   component: () => {
-    const data = peopleRoute.useLoaderData();
+    const data = peopleRoute.useLoaderData()
     return (
       <ul>
         {data.results.map((person) => (
           <li key={person.name}>{person.name}</li>
         ))}
       </ul>
-    );
+    )
   },
-});
+})
 ```
 
 Dessa forma, a aplicação fica padronizada para os momentos que precisa carregar os dados e os momentos que não precisa.
@@ -156,46 +165,48 @@ Dessa forma, a aplicação fica padronizada para os momentos que precisa carrega
 Toda aplicação React precisar lidar com hooks para controle de estados da reatividade da página, nessa aplicação, estamos usando a TanStack Store.
 
 Segue um exemplo de uso do Store no TanStack Store:
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
-import "./App.css";
 
-const countStore = new Store(0);
+```tsx
+import { useStore } from '@tanstack/react-store'
+import { Store } from '@tanstack/store'
+import './App.css'
+
+const countStore = new Store(0)
 
 function App() {
-  const count = useStore(countStore);
+  const count = useStore(countStore)
   return (
     <div>
       <button onClick={() => countStore.setState((n) => n + 1)}>
         Increment - {count}
       </button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 ```
 
 Outra funcionalidade importante que é usada na aplicação, é a derivação de estados com o TanStack Store, onde a partir de um estado, modificamos outro com a função `Derived`.
 
 Segue um exemplo de uso do Derived do TanStack Store:
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
-import "./App.css";
 
-const countStore = new Store(0);
+```tsx
+import { useStore } from '@tanstack/react-store'
+import { Store, Derived } from '@tanstack/store'
+import './App.css'
+
+const countStore = new Store(0)
 
 const doubledStore = new Derived({
   fn: () => countStore.state * 2,
   deps: [countStore],
-});
-doubledStore.mount();
+})
+doubledStore.mount()
 
 function App() {
-  const count = useStore(countStore);
-  const doubledCount = useStore(doubledStore);
+  const count = useStore(countStore)
+  const doubledCount = useStore(doubledStore)
 
   return (
     <div>
@@ -204,8 +215,8 @@ function App() {
       </button>
       <div>Doubled - {doubledCount}</div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 ```

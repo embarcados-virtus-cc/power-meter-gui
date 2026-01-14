@@ -43,19 +43,28 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
     <CardComponent className="h-full w-full flex flex-col">
       <CardHeaderComponent>
         <div className="flex items-center gap-3">
-          <FileText className="text-slate-300" size={24} />
-          <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
-            Parâmetros do Módulo
-          </Label>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-6 h-6 bg-zinc-800 rounded-md" />
+              <Skeleton className="w-48 h-6 bg-zinc-800 rounded-md" />
+            </>
+          ) : (
+            <>
+              <FileText className="text-slate-300" size={24} />
+              <Label className="text-lg font-bold uppercase tracking-wider text-slate-300">
+                Parâmetros do Módulo
+              </Label>
+            </>
+          )}
         </div>
       </CardHeaderComponent>
       <CardContentComponent className="min-h-48 flex-1">
         {isLoading ? (
-          <div className="grid grid-cols-2 gap-4 h-full">
+          <div className="grid grid-cols-2 gap-4 h-full items-stretch">
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg min-h-24"
+                className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg h-full min-h-24"
               >
                 <div className="flex flex-col gap-2">
                   <Skeleton className="w-6 h-6 bg-zinc-800" />
@@ -76,9 +85,7 @@ export function Parameters({ isLoading }: { isLoading: boolean }) {
                 className="flex items-center justify-between p-6 bg-zinc-800 rounded-lg min-h-24"
               >
                 <div className="flex flex-col gap-2">
-                  {param.icon && (
-                    <param.icon className="text-slate-300" size={24} />
-                  )}
+                  <param.icon className="text-slate-300" size={24} />
                   <Label className="text-xs uppercase tracking-wide text-slate-300">
                     {param.label}
                   </Label>

@@ -8,9 +8,11 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { Skeleton } from '@/components/ui/skeleton'
+import { AboutSidebar } from '@/components/about/Sidebar'
 
 export function Header() {
   const [isLoading, setIsLoading] = useState(true)
+  const [isAboutOpen, setIsAboutOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export function Header() {
     return () => clearTimeout(timer)
   }, [])
 
-  const isActive = (path) => {
+  const isActive = (path: string) => {
     return location.pathname === path
   }
 
@@ -124,6 +126,7 @@ export function Header() {
 
                 <NavigationMenuItem>
                   <button
+                    onClick={() => setIsAboutOpen(true)}
                     className="
                       flex flex-row items-center justify-start gap-2
                       text-left cursor-pointer
@@ -141,6 +144,7 @@ export function Header() {
           )}
         </div>
       </div>
+      <AboutSidebar open={isAboutOpen} onOpenChange={setIsAboutOpen} />
     </header>
   )
 }

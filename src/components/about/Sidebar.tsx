@@ -1,3 +1,4 @@
+import { BookA, FileQuestionMark, School } from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -16,9 +17,9 @@ export function AboutSidebar({ open, onOpenChange }: AboutSidebarProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="sm:max-w-xl w-full border-l border-zinc-800 bg-zinc-950 text-slate-300 shadow-2xl flex flex-col h-full">
-        <SheetHeader className="mt-10 text-center">
-          <SheetTitle className="text-xl font-medium tracking-wide text-slate-100">
-            Sobre o Projeto
+        <SheetHeader className="mt-6 text-center">
+          <SheetTitle className="flex text-xl font-medium justify-center gap-2 tracking-wide text-slate-100">
+            <FileQuestionMark className="mt-0.5" /> Sobre o Projeto
           </SheetTitle>
           <SheetDescription className="sr-only">
             Informações sobre o projeto, desenvolvedores e mentores.
@@ -39,7 +40,8 @@ export function AboutSidebar({ open, onOpenChange }: AboutSidebarProps) {
 
           {/* Developers */}
           <div className="flex flex-col gap-4">
-            <SheetTitle className="text-xl font-medium text-center tracking-wide text-slate-100 my-2">
+            <SheetTitle className="flex justify-center gap-2 text-xl font-medium text-center tracking-wide text-slate-100 my-2">
+              <BookA className="mt-0.5" />
               Alunos Desenvolvedores:
             </SheetTitle>
             <div className="rounded-lg bg-zinc-900/50 p-6 shadow-sm ring-1 ring-zinc-800/50">
@@ -58,7 +60,8 @@ export function AboutSidebar({ open, onOpenChange }: AboutSidebarProps) {
 
           {/* Mentors */}
           <div className="flex flex-col gap-4">
-            <SheetTitle className="text-xl font-medium text-center tracking-wide text-slate-100 my-2">
+            <SheetTitle className="flex justify-center gap-2 text-xl font-medium text-center tracking-wide text-slate-100 my-2">
+              <School className="mt-0.5" />
               Professores Mentores:
             </SheetTitle>
             <div className="rounded-lg bg-zinc-900/50 p-6 shadow-sm ring-1 ring-zinc-800/50">

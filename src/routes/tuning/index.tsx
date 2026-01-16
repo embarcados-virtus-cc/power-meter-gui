@@ -11,14 +11,16 @@ export const Route = createFileRoute('/tuning/')({
 })
 
 function RouteComponent() {
-  const { rxPower, txPower, temperature, info, status } = useStore(calibrationStore)
-  const [activeMode, setActiveMode] = useState<'internal' | 'external'>('internal')
+  const { rxPower, txPower, temperature, info, status } =
+    useStore(calibrationStore)
+  const [activeMode, setActiveMode] = useState<'internal' | 'external'>(
+    'internal',
+  )
 
   return (
     <div className="min-h-max bg-zinc-950">
       <main className="container mx-auto p-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[500px]">
-
           {/* Col 1: Selector (3 cols) */}
           <div className="lg:col-span-3 h-full">
             <CalibrationTypeSelector
@@ -42,7 +44,6 @@ function RouteComponent() {
               info={info}
             />
           </div>
-
         </div>
       </main>
     </div>

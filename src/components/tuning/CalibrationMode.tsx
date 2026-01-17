@@ -1,10 +1,10 @@
+import { HelpCircle } from 'lucide-react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
   CardHeaderComponent as CardHeader,
   CardTitleComponent as CardTitle,
 } from '@/components/ui/card'
-import { HelpCircle } from 'lucide-react'
 
 export function CalibrationMode() {
   return (

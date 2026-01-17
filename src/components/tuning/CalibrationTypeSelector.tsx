@@ -1,10 +1,10 @@
+import { CheckCircle, XCircle } from 'lucide-react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
   CardHeaderComponent as CardHeader,
   CardTitleComponent as CardTitle,
 } from '@/components/ui/card'
-import { CheckCircle, XCircle } from 'lucide-react'
 
 // Define the info shape locally or import types
 

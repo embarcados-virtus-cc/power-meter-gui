@@ -1,3 +1,4 @@
+import { SquarePen } from 'lucide-react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -6,7 +7,6 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SquarePen } from 'lucide-react'
 
 // Define prop types if using TypeScript (deduced from usage)
 interface CalibrationInfo {

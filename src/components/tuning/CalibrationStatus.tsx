@@ -1,3 +1,4 @@
+import { CheckCircle } from 'lucide-react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -5,7 +6,6 @@ import {
   CardTitleComponent as CardTitle,
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { CheckCircle } from 'lucide-react'
 
 interface CalibrationStatusProps {
   status: {

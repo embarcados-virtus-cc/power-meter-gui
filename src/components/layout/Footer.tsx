@@ -52,7 +52,7 @@ export function Footer() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-bold text-slate-300">
-                    Medidor de Potência Óptica
+                    Medidor de Potência Óptica (2026)
                   </span>
                   <span className="text-sm text-slate-400">
                     Sistema de Monitoramento de Potência Óptica

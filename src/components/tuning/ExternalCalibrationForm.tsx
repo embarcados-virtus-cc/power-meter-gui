@@ -1,5 +1,5 @@
-import { SquarePen, Check, X } from 'lucide-react'
-import { useState, useRef, useEffect } from 'react'
+import { BookText, Check, SquarePen, SquareSigma, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -31,12 +31,11 @@ export function ExternalCalibrationForm({
   temperature,
   info,
 }: ExternalCalibrationProps) {
-
   // Generic update handler
   const handleUpdate = (
     section: 'rxPower' | 'txPower' | 'temperature',
     key: string,
-    value: string
+    value: string,
   ) => {
     calibrationStore.setState((state) => {
       return {
@@ -52,8 +51,9 @@ export function ExternalCalibrationForm({
   return (
     <Card className="bg-zinc-900 border-zinc-800 h-full shadow-lg flex flex-col">
       <CardHeader className="text-center pb-8 pt-8">
-        <CardTitle className="text-slate-300 text-xl font-bold uppercase">
-          Coeficientes de Calibração
+        <CardTitle className="flex gap-2 justify-center text-slate-300 text-xl font-bold uppercase">
+          <SquareSigma />
+          <span className="mt-0.5">Coeficientes de Calibração</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-5 flex-1 flex flex-col justify-between">
@@ -123,7 +123,8 @@ export function ExternalCalibrationForm({
         {/* Module Info Section (Moved from Selector) */}
         {info && (
           <div className="pt-6 border-t border-zinc-800/50 space-y-3">
-            <h4 className="text-[0.9rem] pb-5 font-bold text-slate-500 uppercase tracking-widest text-center mb-2">
+            <h4 className="flex gap-2 justify-center text-[0.9rem] pb-5 font-bold text-slate-500 uppercase tracking-widest text-center mb-2">
+              <BookText />
               Informações do Módulo
             </h4>
             <div className="grid grid-cols-4 gap-2">
@@ -215,7 +216,7 @@ function InputGroup({
       <div className="flex gap-2 relative">
         <Input
           ref={inputRef}
-          className={`bg-zinc-800/40 border-zinc-800 text-slate-300 h-8 text-xs font-medium 
+          className={`bg-zinc-800/40 border-zinc-800 text-slate-300 h-8 text-xs font-medium
              ${isEditing ? 'border-zinc-600 ring-1 ring-zinc-700' : ''}
           `}
           placeholder={pl}

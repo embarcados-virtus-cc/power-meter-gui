@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from 'lucide-react'
+import { CheckCircle, Cog, SearchCheck, XCircle } from 'lucide-react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -31,8 +31,9 @@ export function CalibrationMode({
   return (
     <Card className="bg-zinc-900 border-zinc-800 h-full shadow-lg flex flex-col">
       <CardHeader className="pb-8 pt-8">
-        <CardTitle className="text-center text-xl font-bold uppercase text-slate-300">
-          Tipo de Calibração
+        <CardTitle className="flex gap-2 justify-center text-center text-xl font-bold uppercase text-slate-300">
+          <Cog />
+          <span className="mt-0.5">Tipo de Calibração</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6 flex-1 flex flex-col p-6">
@@ -109,7 +110,8 @@ export function CalibrationMode({
         {/* Calibration Status */}
         {status && (
           <div className="space-y-4 pt-2 mt-8">
-            <h4 className="text-[16px] font-bold text-slate-500 uppercase tracking-widest text-center">
+            <h4 className="flex gap-2 justify-center text-[16px] font-bold text-slate-500 uppercase tracking-widest text-center">
+              <SearchCheck />
               Status da Calibração
             </h4>
             <div className="grid grid-cols-3 gap-3">

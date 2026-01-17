@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { Flags } from '@/components/alarms/Flags'
-import { Limits } from '@/components/alarms/Limits'
+import { Flags } from '@/components/alarms/page/Flags'
+import { Limits } from '@/components/alarms/page/Limits'
 import { Separator } from '@/components/ui/separator'
 import { loadingStore } from '@/stores/loadingStore'
 

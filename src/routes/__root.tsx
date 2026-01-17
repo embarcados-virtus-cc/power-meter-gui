@@ -1,7 +1,7 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { GlobalAlarmListener } from '@/components/alarms/GlobalAlarmListener'
+import { Header } from '@/components/layout/page/Header'
+import { Footer } from '@/components/layout/page/Footer'
+import { GlobalAlarmListener } from '@/components/alarms/page/GlobalAlarmListener'
 
 export const Route = createRootRoute({
   component: () => (

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { calibrationStore } from '@/stores/calibrationStore'
-import { CalibrationTypeSelector } from '@/components/tuning/CalibrationTypeSelector'
+import { CalibrationMode } from '@/components/tuning/CalibrationMode'
 import { CalibrationInfoColumn } from '@/components/tuning/CalibrationInfoColumn'
 import { ExternalCalibrationForm } from '@/components/tuning/ExternalCalibrationForm'
 
@@ -23,7 +23,7 @@ function RouteComponent() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Col 1: Selector (3 cols) */}
           <div className="lg:col-span-3 h-full">
-            <CalibrationTypeSelector
+            <CalibrationMode
               activeMode={activeMode}
               onModeChange={setActiveMode}
               status={status}

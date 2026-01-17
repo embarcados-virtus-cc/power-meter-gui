@@ -1,8 +1,8 @@
 import { useStore } from '@tanstack/react-store'
 import { BatteryMedium } from 'lucide-react'
 import { useState } from 'react'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
 import {
   CardComponent,
   CardContentComponent,

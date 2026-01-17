@@ -1,8 +1,8 @@
 import { useStore } from '@tanstack/react-store'
 import { FolderClock } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
 import {
   CardComponent,
   CardContentComponent,

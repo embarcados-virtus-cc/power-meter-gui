@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { calibrationStore } from '@/stores/calibrationStore'
-import { CalibrationMode } from '@/components/tuning/CalibrationMode'
-import { CalibrationInfoColumn } from '@/components/tuning/CalibrationInfoColumn'
-import { ExternalCalibrationForm } from '@/components/tuning/ExternalCalibrationForm'
+import { CalibrationMode } from '@/components/tuning/page/CalibrationMode'
+import { CalibrationInfoColumn } from '@/components/tuning/page/CalibrationInfoColumn'
+import { ExternalCalibrationForm } from '@/components/tuning/page/ExternalCalibrationForm'
 
 export const Route = createFileRoute('/tuning/')({
   component: RouteComponent,

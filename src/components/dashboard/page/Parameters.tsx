@@ -1,7 +1,7 @@
 import { BarChart3, FileText, Plug, Thermometer, Zap } from 'lucide-react'
 import { useStore } from '@tanstack/react-store'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
 import {
   CardComponent,
   CardContentComponent,

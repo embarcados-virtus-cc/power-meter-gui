@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import { AboutSidebar } from '@/components/about/Sidebar'
+import { AboutSidebar } from '@/components/about/page/Sidebar'
 
 export function Header() {
   const [isLoading, setIsLoading] = useState(true)

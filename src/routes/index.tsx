@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { RxPower } from '@/components/dashboard/RxPower'
-import { Info } from '@/components/dashboard/Info'
-import { Parameters } from '@/components/dashboard/Parameters'
-import { History } from '@/components/dashboard/History'
+import { RxPower } from '@/components/dashboard/page/RxPower'
+import { Info } from '@/components/dashboard/page/Info'
+import { Parameters } from '@/components/dashboard/page/Parameters'
+import { History } from '@/components/dashboard/page/History'
 import { loadingStore } from '@/stores/loadingStore'
 
 export const Route = createFileRoute('/')({

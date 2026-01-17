@@ -1,7 +1,7 @@
 import { Package } from 'lucide-react'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
-import { Badge } from '../ui/badge'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
+import { Badge } from '../../ui/badge'
 import {
   CardComponent,
   CardContentComponent,

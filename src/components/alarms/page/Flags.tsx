@@ -1,7 +1,7 @@
 import { useStore } from '@tanstack/react-store'
 import { FlagTriangleRight, Trash2, TriangleAlert } from 'lucide-react'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
 import {
   CardComponent,
   CardContentComponent,

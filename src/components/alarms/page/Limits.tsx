@@ -2,8 +2,8 @@ import { useStore } from '@tanstack/react-store'
 import { Check, Settings, SquarePen, X } from 'lucide-react'
 import { useState } from 'react'
 import { Store } from '@tanstack/store'
-import { Skeleton } from '../ui/skeleton'
-import { Label } from '../ui/label'
+import { Skeleton } from '../../ui/skeleton'
+import { Label } from '../../ui/label'
 import {
   CardComponent,
   CardContentComponent,

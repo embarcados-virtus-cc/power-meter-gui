@@ -1,4 +1,5 @@
-import { SquarePen } from 'lucide-react'
+import { SquarePen, Check, X } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -7,6 +8,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { calibrationStore } from '@/stores/calibrationStore'
 
 // Define prop types if using TypeScript (deduced from usage)
 interface CalibrationInfo {
@@ -29,6 +31,24 @@ export function ExternalCalibrationForm({
   temperature,
   info,
 }: ExternalCalibrationProps) {
+
+  // Generic update handler
+  const handleUpdate = (
+    section: 'rxPower' | 'txPower' | 'temperature',
+    key: string,
+    value: string
+  ) => {
+    calibrationStore.setState((state) => {
+      return {
+        ...state,
+        [section]: {
+          ...state[section],
+          [key]: value,
+        },
+      }
+    })
+  }
+
   return (
     <Card className="bg-zinc-900 border-zinc-800 h-full shadow-lg flex flex-col">
       <CardHeader className="text-center pb-8 pt-8">
@@ -47,7 +67,13 @@ export function ExternalCalibrationForm({
             <InputGroup label="Slope" pl="1" val={rxPower.slope} />
             <InputGroup label="RX_pwr(4)" pl="0" val={rxPower.pwr4} />
             <div className="relative">
-              <InputGroup label="RX_pwr(3)" pl="0" val={rxPower.pwr3} hasEdit />
+              <InputGroup
+                label="RX_pwr(3)"
+                pl="0"
+                val={rxPower.pwr3}
+                hasEdit
+                onSave={(val) => handleUpdate('rxPower', 'pwr3', val)}
+              />
             </div>
           </div>
         </div>
@@ -62,7 +88,13 @@ export function ExternalCalibrationForm({
               <InputGroup label="Offset" pl="0" val={txPower.offset} />
             </div>
             <div className="col-span-2">
-              <InputGroup label="Slope" pl="1" val={txPower.slope} hasEdit />
+              <InputGroup
+                label="Slope"
+                pl="1"
+                val={txPower.slope}
+                hasEdit
+                onSave={(val) => handleUpdate('txPower', 'slope', val)}
+              />
             </div>
           </div>
         </div>
@@ -82,6 +114,7 @@ export function ExternalCalibrationForm({
                 pl="1"
                 val={temperature.slope}
                 hasEdit
+                onSave={(val) => handleUpdate('temperature', 'slope', val)}
               />
             </div>
           </div>
@@ -139,12 +172,41 @@ function InputGroup({
   pl,
   val,
   hasEdit,
+  onSave,
 }: {
   label: string
   pl: string
   val: string
   hasEdit?: boolean
+  onSave?: (newValue: string) => void
 }) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [tempValue, setTempValue] = useState(val)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Sync tempValue with prop val when not editing, to handle external updates
+  useEffect(() => {
+    if (!isEditing) {
+      setTempValue(val)
+    }
+  }, [val, isEditing])
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isEditing])
+
+  const handleSave = () => {
+    onSave?.(tempValue)
+    setIsEditing(false)
+  }
+
+  const handleCancel = () => {
+    setTempValue(val)
+    setIsEditing(false)
+  }
+
   return (
     <div className="space-y-0.5 flex flex-col">
       <Label className="text-[13px] text-slate-500 font-normal ml-0.5">
@@ -152,13 +214,37 @@ function InputGroup({
       </Label>
       <div className="flex gap-2 relative">
         <Input
-          className="bg-zinc-800/40 border-zinc-800 text-slate-300 h-8 text-xs font-medium"
+          ref={inputRef}
+          className={`bg-zinc-800/40 border-zinc-800 text-slate-300 h-8 text-xs font-medium 
+             ${isEditing ? 'border-zinc-600 ring-1 ring-zinc-700' : ''}
+          `}
           placeholder={pl}
-          defaultValue={val}
+          value={isEditing ? tempValue : val}
+          onChange={(e) => isEditing && setTempValue(e.target.value)}
+          readOnly={!isEditing}
         />
-        {hasEdit && (
-          <div className="h-8 w-8 flex shrink-0 items-center justify-center bg-zinc-800/40 rounded border border-zinc-800 hover:bg-zinc-700/50 cursor-pointer transition-colors">
+        {hasEdit && !isEditing && (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="h-8 w-8 flex shrink-0 items-center justify-center bg-zinc-800/40 rounded border border-zinc-800 hover:bg-zinc-700/50 cursor-pointer transition-colors"
+          >
             <SquarePen className="w-4.5 h-4.5 text-slate-400" />
+          </button>
+        )}
+        {hasEdit && isEditing && (
+          <div className="flex gap-1">
+            <button
+              onClick={handleSave}
+              className="h-8 w-8 flex shrink-0 items-center justify-center bg-green-900/40 rounded border border-green-800 hover:bg-green-900/60 cursor-pointer transition-colors"
+            >
+              <Check className="w-4 h-4 text-green-400" />
+            </button>
+            <button
+              onClick={handleCancel}
+              className="h-8 w-8 flex shrink-0 items-center justify-center bg-red-900/40 rounded border border-red-800 hover:bg-red-900/60 cursor-pointer transition-colors"
+            >
+              <X className="w-4 h-4 text-red-400" />
+            </button>
           </div>
         )}
       </div>

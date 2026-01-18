@@ -1,5 +1,6 @@
 import { BookText, Check, SquarePen, SquareSigma, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { Skeleton } from '../../ui/skeleton'
 import {
   CardComponent as Card,
   CardContentComponent as CardContent,
@@ -10,7 +11,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { calibrationStore } from '@/stores/calibrationStore'
 
-// Define prop types if using TypeScript (deduced from usage)
 interface CalibrationInfo {
   ddmType: string
   version: string
@@ -23,6 +23,7 @@ interface ExternalCalibrationProps {
   txPower: { offset: string; slope: string }
   temperature: { offset: string; slope: string }
   info?: CalibrationInfo
+  isLoading: boolean
 }
 
 export function ExternalCalibrationForm({
@@ -30,6 +31,7 @@ export function ExternalCalibrationForm({
   txPower,
   temperature,
   info,
+  isLoading,
 }: ExternalCalibrationProps) {
   // Generic update handler
   const handleUpdate = (
@@ -51,117 +53,181 @@ export function ExternalCalibrationForm({
   return (
     <Card className="bg-zinc-900 border-zinc-800 h-full shadow-lg flex flex-col">
       <CardHeader className="text-center pb-8 pt-8">
-        <CardTitle className="flex gap-2 justify-center text-slate-300 text-xl font-bold uppercase">
-          <SquareSigma />
-          <span className="mt-0.5">Coeficientes de Calibração</span>
-        </CardTitle>
+        {isLoading ? (
+          <div className="flex gap-2 justify-center">
+            <Skeleton className="w-6 h-6 bg-zinc-800 rounded-md" />
+            <Skeleton className="w-64 h-6 bg-zinc-800 rounded-md" />
+          </div>
+        ) : (
+          <CardTitle className="flex gap-2 justify-center text-slate-300 text-xl font-bold uppercase">
+            <SquareSigma />
+            <span className="mt-0.5">Coeficientes de Calibração</span>
+          </CardTitle>
+        )}
       </CardHeader>
       <CardContent className="p-5 flex-1 flex flex-col justify-between">
-        {/* RX Power Section */}
-        <div className="space-y-3">
-          <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
-            RX Power
-          </div>
-          <div className="grid grid-cols-4 gap-3">
-            <InputGroup label="Offset" pl="0" val={rxPower.offset} />
-            <InputGroup label="Slope" pl="1" val={rxPower.slope} />
-            <InputGroup label="RX_pwr(4)" pl="0" val={rxPower.pwr4} />
-            <div className="relative">
-              <InputGroup
-                label="RX_pwr(3)"
-                pl="0"
-                val={rxPower.pwr3}
-                hasEdit
-                onSave={(val) => handleUpdate('rxPower', 'pwr3', val)}
-              />
+        {isLoading ? (
+          <>
+            {/* RX Power Section Skeleton */}
+            <div className="space-y-3">
+              <Skeleton className="w-24 h-5 bg-zinc-800 rounded-md" />
+              <div className="grid grid-cols-4 gap-3">
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* TX Power Section */}
-        <div className="space-y-3">
-          <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
-            TX Power
-          </div>
-          <div className="grid grid-cols-4 gap-3">
-            <div className="col-span-1">
-              <InputGroup label="Offset" pl="0" val={txPower.offset} />
+            {/* TX Power Section Skeleton */}
+            <div className="space-y-3">
+              <Skeleton className="w-24 h-5 bg-zinc-800 rounded-md" />
+              <div className="grid grid-cols-4 gap-3">
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <div className="col-span-2">
+                  <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                </div>
+              </div>
             </div>
-            <div className="col-span-2">
-              <InputGroup
-                label="Slope"
-                pl="1"
-                val={txPower.slope}
-                hasEdit
-                onSave={(val) => handleUpdate('txPower', 'slope', val)}
-              />
-            </div>
-          </div>
-        </div>
 
-        {/* Temperature Section */}
-        <div className="space-y-3">
-          <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
-            Temperatura
-          </div>
-          <div className="grid grid-cols-4 gap-3">
-            <div className="col-span-1">
-              <InputGroup label="Offset (°C)" pl="0" val={temperature.offset} />
+            {/* Temperature Section Skeleton */}
+            <div className="space-y-3">
+              <Skeleton className="w-32 h-5 bg-zinc-800 rounded-md" />
+              <div className="grid grid-cols-4 gap-3">
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <div className="col-span-2">
+                  <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                </div>
+              </div>
             </div>
-            <div className="col-span-2">
-              <InputGroup
-                label="Slope"
-                pl="1"
-                val={temperature.slope}
-                hasEdit
-                onSave={(val) => handleUpdate('temperature', 'slope', val)}
-              />
-            </div>
-          </div>
-        </div>
 
-        {/* Module Info Section (Moved from Selector) */}
-        {info && (
-          <div className="pt-6 border-t border-zinc-800/50 space-y-3">
-            <h4 className="flex gap-2 justify-center text-[0.9rem] pb-5 font-bold text-slate-500 uppercase tracking-widest text-center mb-2">
-              <BookText />
-              Informações do Módulo
-            </h4>
-            <div className="grid grid-cols-4 gap-2">
-              <div className="text-center">
-                <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
-                  Tipo DDM
-                </Label>
-                <div className="font-mono text-xs text-slate-300">
-                  {info.ddmType}
-                </div>
+            {/* Module Info Section Skeleton */}
+            <div className="pt-6 border-t border-zinc-800/50 space-y-3">
+              <div className="flex gap-2 justify-center pb-5">
+                <Skeleton className="w-6 h-5 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-48 h-5 bg-zinc-800 rounded-md" />
               </div>
-              <div className="text-center">
-                <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
-                  Versão
-                </Label>
-                <div className="font-mono text-xs text-slate-300">
-                  {info.version}
-                </div>
+              <div className="grid grid-cols-4 gap-2">
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
+                <Skeleton className="w-full h-10 bg-zinc-800 rounded-md" />
               </div>
-              <div className="text-center">
-                <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
-                  RX Pwr Type
-                </Label>
-                <div className="font-mono text-xs text-slate-300">
-                  {info.rxPowerType}
-                </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* RX Power Section */}
+            <div className="space-y-3">
+              <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
+                RX Power
               </div>
-              <div className="text-center">
-                <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
-                  Endereçamento
-                </Label>
-                <div className="font-mono text-xs text-slate-300">
-                  {info.addressChange}
+              <div className="grid grid-cols-4 gap-3">
+                <InputGroup label="Offset" pl="0" val={rxPower.offset} />
+                <InputGroup label="Slope" pl="1" val={rxPower.slope} />
+                <InputGroup label="RX_pwr(4)" pl="0" val={rxPower.pwr4} />
+                <div className="relative">
+                  <InputGroup
+                    label="RX_pwr(3)"
+                    pl="0"
+                    val={rxPower.pwr3}
+                    hasEdit
+                    onSave={(val) => handleUpdate('rxPower', 'pwr3', val)}
+                  />
                 </div>
               </div>
             </div>
-          </div>
+
+            {/* TX Power Section */}
+            <div className="space-y-3">
+              <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
+                TX Power
+              </div>
+              <div className="grid grid-cols-4 gap-3">
+                <div className="col-span-1">
+                  <InputGroup label="Offset" pl="0" val={txPower.offset} />
+                </div>
+                <div className="col-span-2">
+                  <InputGroup
+                    label="Slope"
+                    pl="1"
+                    val={txPower.slope}
+                    hasEdit
+                    onSave={(val) => handleUpdate('txPower', 'slope', val)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Temperature Section */}
+            <div className="space-y-3">
+              <div className="text-[0.9rem] font-bold text-slate-500 uppercase tracking-widest pl-1">
+                Temperatura
+              </div>
+              <div className="grid grid-cols-4 gap-3">
+                <div className="col-span-1">
+                  <InputGroup
+                    label="Offset (°C)"
+                    pl="0"
+                    val={temperature.offset}
+                  />
+                </div>
+                <div className="col-span-2">
+                  <InputGroup
+                    label="Slope"
+                    pl="1"
+                    val={temperature.slope}
+                    hasEdit
+                    onSave={(val) => handleUpdate('temperature', 'slope', val)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Module Info Section (Moved from Selector) */}
+            {info && (
+              <div className="pt-6 border-t border-zinc-800/50 space-y-3">
+                <h4 className="flex gap-2 justify-center text-[0.9rem] pb-5 font-bold text-slate-500 uppercase tracking-widest text-center mb-2">
+                  <BookText />
+                  Informações do Módulo
+                </h4>
+                <div className="grid grid-cols-4 gap-2">
+                  <div className="text-center">
+                    <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
+                      Tipo DDM
+                    </Label>
+                    <div className="font-mono text-xs text-slate-300">
+                      {info.ddmType}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
+                      Versão
+                    </Label>
+                    <div className="font-mono text-xs text-slate-300">
+                      {info.version}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
+                      RX Pwr Type
+                    </Label>
+                    <div className="font-mono text-xs text-slate-300">
+                      {info.rxPowerType}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <Label className="text-[12px] text-zinc-500 uppercase font-bold tracking-wider block mb-0.5">
+                      Endereçamento
+                    </Label>
+                    <div className="font-mono text-xs text-slate-300">
+                      {info.addressChange}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </CardContent>
     </Card>

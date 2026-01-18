@@ -4,15 +4,14 @@ import { History } from '../page/History'
 
 // Mock store
 vi.mock('@tanstack/react-store', () => ({
-    useStore: () => [-10, -5, -8, -12]
+  useStore: () => [-10, -5, -8, -12],
 }))
 
 describe('History', () => {
-    it('renders with title', () => {
-        render(<History isLoading={false} />)
-        expect(screen.getByText(/Histórico de Potência Óptica/i)).toBeInTheDocument()
-    })
-
-    // Recharts renders complex SVG, basic rendering check is usually enough or checking axis text
-    // JSDOM might not fully render SVG layout but it renders elements
+  it('renders with title', () => {
+    render(<History isLoading={false} />)
+    expect(
+      screen.getByText(/Histórico de Potência Óptica/i),
+    ).toBeInTheDocument()
+  })
 })

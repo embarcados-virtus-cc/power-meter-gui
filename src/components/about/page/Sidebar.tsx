@@ -8,12 +8,12 @@ import {
 } from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
 
-interface AboutSidebarProps {
+interface AboutProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function AboutSidebar({ open, onOpenChange }: AboutSidebarProps) {
+export function About({ open, onOpenChange }: AboutProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="sm:max-w-xl w-full border-l border-zinc-800 bg-zinc-950 text-slate-300 shadow-2xl flex flex-col h-full">
@@ -78,7 +78,7 @@ export function AboutSidebar({ open, onOpenChange }: AboutSidebarProps) {
   )
 }
 
-export function AboutSidebarSkeleton() {
+export function AboutSkeleton() {
   return (
     <div className="bg-zinc-950 flex h-full w-full flex-col gap-4 p-6 border-l border-zinc-800">
       {/* Header Skeleton */}

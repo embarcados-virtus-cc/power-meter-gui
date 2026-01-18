@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import { AboutSidebar } from '@/components/about/page/Sidebar'
+import { About } from '@/components/about/page/Sidebar'
 
 export function Header() {
   const [isLoading, setIsLoading] = useState(true)
@@ -144,7 +144,7 @@ export function Header() {
           )}
         </div>
       </div>
-      <AboutSidebar open={isAboutOpen} onOpenChange={setIsAboutOpen} />
+      <About open={isAboutOpen} onOpenChange={setIsAboutOpen} />
     </header>
   )
 }
